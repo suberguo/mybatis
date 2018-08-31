@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dds.mybatis.AuthorMapper">
+    <resultMap id="AuthorMap" type="com.dds.mybatis.Author" >
+        <id column="author_id" property="id" ></id>
+        <result column="name" property="name" />
+    </resultMap>
+    <select id="get" resultMap="AuthorMap">
+    select * from author where author_id = #{id}
+    </select>
+    <insert id="add" parameterType="com.dds.mybatis.Author">
+        insert into author(name) values(#{name})
+    </insert>
+    <update id="update" parameterType="com.dds.mybatis.Author">
+        update author set name=#{name} where author_id=#{id}
+    </update>
+    <delete id="delete" parameterType="int">
+        delete from author where author_id=#{id}
+    </delete>
+</mapper>

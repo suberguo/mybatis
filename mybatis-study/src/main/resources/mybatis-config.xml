@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties >
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://10.198.1.128/daydaysun?useUnicode=true&amp;characterEncoding=UTF8&amp;verifyServerCertificate=false&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"/>
+        <property name="username" value="dds"/>
+        <property name="password" value="Gsb@SZ11"/>
+    </properties>
+    <settings>
+        <setting name="lazyLoadingEnabled" value="false"/>
+    </settings>
+    <typeAliases>
+        <typeAlias type="com.dds.mybatis.Blog" alias="Blog" />
+        <typeAlias type="com.dds.mybatis.Author" alias="Author" />
+    </typeAliases>
+    <typeHandlers>
+        <typeHandler handler="com.dds.mybatis.BlogNameTypeHandler" javaType="string" jdbcType="VARCHAR" />
+    </typeHandlers>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="BlogMapper.xml"/>
+        <mapper resource="AuthorMapper.xml" />
+    </mappers>
+</configuration>

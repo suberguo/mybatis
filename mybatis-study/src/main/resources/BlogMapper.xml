@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dds.mybatis.BlogMapper">
+    <!-- 嵌套查询 -->
+    <!--
+    <resultMap id="BlogMap" type="Blog" >
+        <id column="id" property="id" ></id>
+        <result column="name" property="name"  />
+        <association property="author" column="author_id" javaType="Author" select="selectAuthor" />
+    </resultMap>
+    <select id="selectAuthor" resultType="Author" >
+        select * from author where author_id=#{author_id}
+    </select>
+    <select id="selectBlog" resultMap="BlogMap">
+    select * from blog where id = #{id}
+    </select>-->
+    <!-- 嵌套结果 -->
+    <!--
+    <resultMap id="BlogMap" type="Blog">
+        <id column="blog_id" property="id" ></id>
+        <result column="blog_title" property="name" />
+        <result column="blog_text" property="text" />
+        <association property="author"  javaType="Author">
+            <id column="author_id" property="id"></id>
+            <result column="author_name" property="name" ></result>
+        </association>
+    </resultMap>
+
+    <select id="selectBlogAndAuthor" resultMap="BlogMap" >
+        select
+            b.id        as blog_id,
+            b.title     as blog_title,
+            b.text      as blog_text,
+            b.author_id as blog_author_id,
+            a.author_id as author_id,
+            a.name      as author_name
+        from blog b
+        left join author a on b.author_id=a.author_id
+        where b.id=#{id}
+    </select>-->
+    <!-- 集合嵌套查询 -->
+
+    <resultMap id="BlogMap" type="Blog">
+        <id column="id" property="id" ></id>
+        <result column="title" property="name" />
+        <result column="text" property="text" />
+        <collection property="posts" column="id" ofType="com.dds.mybatis.Post" select="selectPost" />
+    </resultMap>
+    <select id="selectPost" resultType="com.dds.mybatis.Post">
+        select * from post where blog_id=#{id}
+    </select>
+    <select id="selectBlogAndPost" resultMap="BlogMap" >
+        select
+            b.id,
+            b.title,
+            b.text,
+            b.author_id
+        from blog b
+        where b.id=#{id}
+    </select>
+    <!-- 集合嵌套结果 -->
+    <!--
+    <resultMap id="BlogMap" type="Blog">
+        <id column="blog_id" property="id" ></id>
+        <result column="blog_title" property="name" />
+        <result column="blog_text" property="text" />
+        <collection property="posts"  column="id" ofType="com.dds.mybatis.Post" >
+            <id column="post_id" property="id" ></id>
+            <result column="post_content" property="content"></result>
+        </collection>
+    </resultMap>
+
+    <select id="selectBlogAndPost" parameterType="int" resultMap="BlogMap" >
+        select
+            a.id      as blog_id,
+            a.title   as blog_title,
+            a.text    as blog_text,
+            b.id      as post_id,
+            b.content as post_content
+        from blog a
+        left join post b on a.id=b.blog_id
+        where b.id=#{id}
+    </select>-->
+    <insert id="addBlog">
+        insert into blog(id,name) values(#{id},#{name})
+    </insert>
+    <update id="updateBlog">
+        update blog set name=#{name} where id=#{id}
+    </update>
+</mapper>
