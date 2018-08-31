@@ -1,14 +1,16 @@
 package com.dds.mybatis;
 
+import com.dds.mybatis.session.DefaultSqlSession;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 public class MapperProxy implements InvocationHandler {
 
-    private SqlSession session;
+    private DefaultSqlSession session;
 
-    public MapperProxy(SqlSession session) {
+    public MapperProxy(DefaultSqlSession session) {
         this.session = session;
     }
 

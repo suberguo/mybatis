@@ -1,5 +1,7 @@
 package com.dds.mybatis;
 
+import com.dds.mybatis.session.DefaultSqlSession;
+
 import java.util.HashMap;
 
 public class Configuration {
@@ -8,7 +10,7 @@ public class Configuration {
         return Sql.map.get(fullName);
     }
 
-    public <T> T getMapper(SqlSession session, Class<T> clz){
+    public <T> T getMapper(DefaultSqlSession session, Class<T> clz){
         MapperProxy mapperProxy = new MapperProxy(session);
         return mapperProxy.newInstance(clz);
     }

@@ -1,18 +1,22 @@
-package com.dds.mybatis;
+package com.dds.mybatis.session;
+
+import com.dds.mybatis.Configuration;
+import com.dds.mybatis.Executor;
 
 import java.util.List;
 
 
-public class SqlSession {
+public class DefaultSqlSession implements SqlSession {
 
     private Configuration configuration;
     private Executor executor;
 
-    public SqlSession(Configuration configuration, Executor executor) {
+    public DefaultSqlSession(Configuration configuration, Executor executor) {
         this.configuration = configuration;
         this.executor = executor;
     }
 
+    @Override
     public <T> T selectOne(String method, Object[] parameters, Class<T> clz) throws Exception {
         String sql = this.configuration.getSql(method);
         List<T> list = this.executor.query(sql, parameters, clz);
@@ -25,11 +29,13 @@ public class SqlSession {
         }
     }
 
+    @Override
     public <T> List<T> selectList(String method, Object[] parameters, Class<T> clz) throws Exception {
         String sql = this.configuration.getSql(method);
         return this.executor.query(sql, parameters, clz);
     }
 
+    @Override
     public <T> T getMapper(Class<T> clz) {
         return this.configuration.getMapper(this,clz);
     }
