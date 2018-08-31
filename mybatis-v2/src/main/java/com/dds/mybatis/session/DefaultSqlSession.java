@@ -1,7 +1,7 @@
 package com.dds.mybatis.session;
 
 import com.dds.mybatis.Configuration;
-import com.dds.mybatis.Executor;
+import com.dds.mybatis.executor.DefaultExecutor;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import java.util.List;
 public class DefaultSqlSession implements SqlSession {
 
     private Configuration configuration;
-    private Executor executor;
+    private DefaultExecutor executor;
 
-    public DefaultSqlSession(Configuration configuration, Executor executor) {
+    public DefaultSqlSession(Configuration configuration, DefaultExecutor defaultExecutor) {
         this.configuration = configuration;
-        this.executor = executor;
+        this.executor = defaultExecutor;
     }
 
     @Override

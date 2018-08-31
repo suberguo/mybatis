@@ -1,12 +1,13 @@
-package com.dds.mybatis;
+package com.dds.mybatis.executor;
 
 import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Executor {
+public class DefaultExecutor implements Executor {
 
+    @Override
     public <T> List<T> query(String sql, Object[] parameters, Class<T> clz) throws Exception {
 
         List<T> list = new ArrayList<T>();
@@ -42,6 +43,11 @@ public class Executor {
             }
         }
         return list;
+    }
+
+    @Override
+    public void execute(String sql, Object[] parameter) throws Exception {
+
     }
 
 }
