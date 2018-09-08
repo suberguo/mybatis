@@ -1,6 +1,6 @@
-package com.dds.mybatis;
+package com.dds.mybatis.mapper;
 
-import com.dds.mybatis.session.DefaultSqlSession;
+import com.dds.mybatis.session.SqlSession;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -8,9 +8,9 @@ import java.lang.reflect.Proxy;
 
 public class MapperProxy implements InvocationHandler {
 
-    private DefaultSqlSession session;
+    private SqlSession session;
 
-    public MapperProxy(DefaultSqlSession session) {
+    public MapperProxy(SqlSession session) {
         this.session = session;
     }
 
@@ -21,6 +21,7 @@ public class MapperProxy implements InvocationHandler {
         } else {
             return this.session.selectOne(proxy.getClass().getInterfaces()[0] + "#" + method.getName(),
                     args, method.getReturnType());
+
         }
     }
 

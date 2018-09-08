@@ -1,7 +1,7 @@
 package com.dds.mybatis.session;
 
-import com.dds.mybatis.Configuration;
-import com.dds.mybatis.executor.DefaultExecutor;
+import com.dds.mybatis.config.Configuration;
+import com.dds.mybatis.executor.Executor;
 
 import java.util.List;
 
@@ -9,11 +9,11 @@ import java.util.List;
 public class DefaultSqlSession implements SqlSession {
 
     private Configuration configuration;
-    private DefaultExecutor executor;
+    private Executor executor;
 
-    public DefaultSqlSession(Configuration configuration, DefaultExecutor defaultExecutor) {
+    public DefaultSqlSession(Configuration configuration, Executor executor) {
         this.configuration = configuration;
-        this.executor = defaultExecutor;
+        this.executor = executor;
     }
 
     @Override
@@ -38,5 +38,15 @@ public class DefaultSqlSession implements SqlSession {
     @Override
     public <T> T getMapper(Class<T> clz) {
         return this.configuration.getMapper(this,clz);
+    }
+
+    @Override
+    public void commit() {
+
+    }
+
+    @Override
+    public void close() {
+
     }
 }

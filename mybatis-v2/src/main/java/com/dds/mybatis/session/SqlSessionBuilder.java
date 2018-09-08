@@ -1,8 +1,16 @@
 package com.dds.mybatis.session;
 
+import com.dds.mybatis.config.Configuration;
+
 public class SqlSessionBuilder {
 
-    SqlSession openSession(){
-         return null;
+    private Configuration configuration;
+
+    public SqlSessionBuilder(Configuration configuration) {
+        this.configuration = configuration;
+    }
+
+    public SqlSession openSession(){
+       return new DefaultSqlSession(this.configuration,this.configuration.newExecutor());
     }
 }
